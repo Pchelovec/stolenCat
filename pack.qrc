@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/cat0.gif</file>
+        <file>img/cat1.gif</file>
+        <file>img/testRoom.png</file>
+        <file>img/cactuses/cactus1.webp</file>
+        <file>img/cactuses/cactus2.webp</file>
+        <file>img/cactuses/cactus3.webp</file>
+        <file>img/cactuses/cactus4.webp</file>
+        <file>img/cactuses/cactus5.webp</file>
+    </qresource>
+</RCC>
