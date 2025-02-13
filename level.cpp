@@ -5,12 +5,12 @@ Level::Level(QObject *parent) : QObject(parent)
 
 }
 
-QPixmap Level::getBuckground() const
+Item Level::getBuckground() const
 {
     return buckground;
 }
 
-void Level::setBuckground(const QPixmap &value)
+void Level::setBuckground(const Item &value)
 {
     buckground = value;
 }

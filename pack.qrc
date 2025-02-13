@@ -8,5 +8,7 @@
         <file>img/cactuses/cactus3.webp</file>
         <file>img/cactuses/cactus4.webp</file>
         <file>img/cactuses/cactus5.webp</file>
+        <file>img/load.gif</file>
+        <file>img/checked.png</file>
     </qresource>
 </RCC>

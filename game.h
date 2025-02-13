@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QPixmap>
+#include<QSize>
 #include "gametask.h"
 #include "patched_game_painter.h"
 #include"level.h"
@@ -22,12 +23,13 @@ public:
     QPixmap getItem2();
 
     Screen getScreen(){return screen;}
+    QSize getScreenSize(){return level.getBuckground().getSize();}
 
 
 private:
 
     QPixmap getResImg(QString path, QSize screen_size);
-    QPixmap getResImg(QString path);
+//    QPixmap getResImg(QString path);
     Level level;
     Screen screen;
     QRect createRectByItem(Item item);

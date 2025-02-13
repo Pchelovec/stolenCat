@@ -33,8 +33,7 @@ SOURCES += \
         loader.cpp \
     game.cpp \
     level.cpp \
-    screen.cpp \
-    item.cpp
+    screen.cpp
 
 HEADERS += \
         widget.h \

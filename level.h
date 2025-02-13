@@ -12,8 +12,8 @@ class Level : public QObject
 public:
     explicit Level(QObject *parent = nullptr);
 
-    QPixmap getBuckground() const;
-    void setBuckground(const QPixmap &value);
+    Item getBuckground() const;
+    void setBuckground(const Item &value);
 
     Item getItem0(){return items[0];}
     Item getItem1(){return items[1];}
@@ -43,22 +43,66 @@ public:
         loader.loadLevel1(levelName);
         buckground=loader.getBuckground();
         elements=loader.getImagesElemenstAsList();
+        toFind=loader.getImagesElemenstAsList();
         items.push_back(elements[0]);
         items.push_back(elements[1]);
         items.push_back(elements[2]);
 
-        //remove from stored items
-//        loader.getItemAndRemove(elements[0].);
+        toFind.pop_front();
+        toFind.pop_front();
+        toFind.pop_front();
+
+        //final checkes
+        toFind.push_back(Item::getNewCheckedElem());
+        toFind.push_back(Item::getNewCheckedElem());
+        toFind.push_back(Item::getNewCheckedElem());
+
+        qDebug()<<"toFindSize:"<<toFind.size();
     }
 
     QList<Item> getElements(){return elements;}
+
+    void setNewSearchedItem(){
+        qDebug()<<items[0].name;
+        qDebug()<<items[1].name;
+        qDebug()<<items[2].name;
+
+        qDebug()<<"elements size:"<<toFind.size();
+
+//        if (items[0].name==""){del(items[0]);}//toFind.pop_front();
+//        if (items[1].name==""){del(items[1]);}
+//        if (items[2].name==""){del(items[2]);}
+
+    }
+
+    void delElem1(){Item removedItem=items[0];del(removedItem);
+                    items[0]=get();
+//                    setNewSearchedItem();
+                   }
+    void delElem2(){Item removedItem=items[1];del(removedItem);
+                    items[1]=get();
+//                    setNewSearchedItem();
+                   }
+    void delElem3(){Item removedItem=items[2];del(removedItem);
+                    items[2]=get();
+//                                setNewSearchedItem();
+                   }
 private:
-    QList<Item> items;
-    QPixmap buckground;
-    QList<Item> elements;
+    QList<Item> items;//searched elem
+    Item buckground;
+    QList<Item> elements;//all elem
+    QList<Item> toFind;//all elem to find
 
     Loader loader;
 
+    void del(Item i){
+        qDebug()<<"remove"<<i.name;
+        elements.removeOne(i);
+    }
+
+    Item get(){
+        Item i=toFind.front();toFind.pop_front();return i;
+    }
 };
 
 #endif // LEVEL_H

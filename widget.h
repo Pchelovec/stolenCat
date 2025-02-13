@@ -1,6 +1,7 @@
 #ifndef WIDGET_H
 #define WIDGET_H
 
+#include<QLabel>
 #include <QWidget>
 #include <QEvent>
 #include "game.h"
@@ -33,6 +34,8 @@ private:
     QEvent::Type m_eLastEventType;
     void loadWalkedCat();
     bool checkIsInContentArea(QPoint scroll);
+    QLabel *loadingLevelProgressLabel;
+    void loadLevel();
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -40,6 +43,7 @@ protected:
     void mouseMoveEvent(QMouseEvent *event);
 private:
     QPoint getHitPosition(QMouseEvent *event);
+    void showLevelOnScene();
 };
 
 #endif // WIDGET_H

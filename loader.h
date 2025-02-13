@@ -42,11 +42,11 @@ public:
         return map->contains(resPath);
     }
 
-    QPixmap getBuckground(){
+    Item getBuckground(){
         QString key=":/img/testRoom.png";
         Item i=map->find(key).value();
         map->remove(key);
-        return i.pixmap;
+        return i;
     }
 
     QList<Item> getImagesElemenstAsList(){
@@ -54,6 +54,7 @@ public:
         for (auto it = map->keyValueBegin(); it != map->keyValueEnd(); ++it) {
             result.push_back(it.base().value());
         }
+        qDebug()<<"current length of arr:"<<result.length();
         return result;
     }
 
