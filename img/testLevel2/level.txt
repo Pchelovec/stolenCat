@@ -1,0 +1,11 @@
+"paper.webp" 0 0
+"Polly.png" 0 200 200 200
+"Lolly.png" 200 200 200 200
+"Trolly.png" 400 200 200 200
+"Polly_name.webp" 0 400 200 200
+"Lolly_name.webp" 200 400 200 200
+"Trolly_name.webp" 400 400 200 200
+"welcome.webp" 0 0 600 200
+"checked.png" 0 0 0 0
+"checked.png" 0 0 0 0
+"checked.png" 0 0 0 0

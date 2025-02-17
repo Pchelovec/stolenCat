@@ -17,7 +17,7 @@ public:
     }
 
     static Item getNewCheckedElem(){
-        QString path=":/img/checked.png";
+        QString path=":/img/testLevel1/checked.png";
         QPixmap img;
                 img.load(path);
 

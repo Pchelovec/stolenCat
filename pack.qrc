@@ -1,14 +1,25 @@
 <RCC>
     <qresource prefix="/">
-        <file>img/cat0.gif</file>
-        <file>img/cat1.gif</file>
-        <file>img/testRoom.png</file>
-        <file>img/cactuses/cactus1.webp</file>
-        <file>img/cactuses/cactus2.webp</file>
-        <file>img/cactuses/cactus3.webp</file>
-        <file>img/cactuses/cactus4.webp</file>
-        <file>img/cactuses/cactus5.webp</file>
-        <file>img/load.gif</file>
-        <file>img/checked.png</file>
+        <file>img/screen/cat0.gif</file>
+        <file>img/screen/language.png</file>
+        <file>img/screen/load.gif</file>
+        <file>img/testLevel1/cactuses/cactus1.webp</file>
+        <file>img/testLevel1/cactuses/cactus2.webp</file>
+        <file>img/testLevel1/cactuses/cactus3.webp</file>
+        <file>img/testLevel1/cactuses/cactus4.webp</file>
+        <file>img/testLevel1/cactuses/cactus5.webp</file>
+        <file>img/testLevel1/checked.png</file>
+        <file>img/testLevel1/testRoom.png</file>
+        <file>img/testLevel1/level.txt</file>
+        <file>img/testLevel2/checked.png</file>
+        <file>img/testLevel2/level.txt</file>
+        <file>img/testLevel2/Lolly.png</file>
+        <file>img/testLevel2/Lolly_name.webp</file>
+        <file>img/testLevel2/paper.webp</file>
+        <file>img/testLevel2/Polly.png</file>
+        <file>img/testLevel2/Poly_name.webp</file>
+        <file>img/testLevel2/Trolly.png</file>
+        <file>img/testLevel2/Trolly_name.webp</file>
+        <file>img/testLevel2/welcome.webp</file>
     </qresource>
 </RCC>

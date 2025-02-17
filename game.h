@@ -8,6 +8,7 @@
 #include "patched_game_painter.h"
 #include"level.h"
 #include"screen.h"
+#include"progress.h"
 class Game : public QObject
 {
     Q_OBJECT
@@ -25,6 +26,8 @@ public:
     Screen getScreen(){return screen;}
     QSize getScreenSize(){return level.getBuckground().getSize();}
 
+    bool levelFinished();
+    void saveProgress(QString passedLevel);
 
 private:
 

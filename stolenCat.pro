@@ -30,10 +30,10 @@ SOURCES += \
         gametask.cpp \
         patched_game_painter.cpp \
         clickablelabel.cpp \
-        loader.cpp \
     game.cpp \
     level.cpp \
-    screen.cpp
+    screen.cpp \
+    gameprogress.cpp
 
 HEADERS += \
         widget.h \
@@ -45,7 +45,10 @@ HEADERS += \
     level.h \
     screen.h \
     item.h \
-    itemtype.h
+    itemtype.h \
+    gameprogress.h \
+    progress.h \
+    language.h
 
 FORMS += \
         widget.ui

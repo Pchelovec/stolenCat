@@ -5,26 +5,36 @@
 #include <QDebug>
 
 #include<QScrollBar>
+#include"gameprogress.h"
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
     ui->setupUi(this);
     game=new Game();
-    loadWalkedCat();
+    //loadWalkedCat();
     loadingLevelProgressLabel = new QLabel(this);
     ui->stackedWidget->setCurrentIndex(0);
+    QStringList sl=GameProgress::getLevels();
+    GameProgress::checkLevel(sl[0]);
+    if (Progress::progressExist()){
+        setLevelProgress(Progress::loadProgress().first);//setup restored progress
+    }
+    else {
+        setLevelProgress(":/img/testLevel1");
+    }
 }
 
-void Widget::loadWalkedCat()
-{
-    QMovie *movie = new QMovie(":/img/cat0.gif");
-    movie->setScaledSize(QSize(600,400));
-    ui->label->setMovie(movie);
-    ui->label->setScaledContents(true);
-    ui->label->setToolTip("This cat was stolen");
-    movie->start();
-}
+//void Widget::loadWalkedCat()
+//{
+//    QMovie *movie = new QMovie(":/img/cat0.gif");
+//    movie->setScaledSize(QSize(600,400));//:/img/cat0.gif
+//    ui->stackedWidget->currentWidget()->setStyleSheet("background-image:url(\"bkg.jpg\"); background-position: center;");
+////    ui->label->setMovie(movie);
+////    ui->label->setScaledContents(true);
+////    ui->label->setToolTip("This cat was stolen");
+//    movie->start();
+//}
 
 bool Widget::checkIsInContentArea(QPoint pos)
 {
@@ -42,8 +52,16 @@ void Widget::mousePressEvent(QMouseEvent *event)
 
     if (event->button() == Qt::LeftButton)
     {
+
         mLastMouseDragLocation = event->pos();
         setCursor(Qt::CursorShape::OpenHandCursor);
+    }
+
+    if (ui->stackedWidget->currentIndex()==2){
+        ui->stackedWidget->setCurrentIndex(0);
+        //TODO MAKE SETTINGS FIELDS AND
+                //SAVE SETTINGS
+        return;
     }
 
     if (ui->stackedWidget->currentIndex()==1){
@@ -51,8 +69,20 @@ void Widget::mousePressEvent(QMouseEvent *event)
         QPoint p=getHitPosition(event);
         if (checkIsInContentArea(p)){
             bool b=game->hit(p);
-            if (b) {showLevelOnScene();}
+            if (b) {showLevelOnScene();}//intersected with item and needed to repaint ui
+            if (game->levelFinished()){game->saveProgress(ui->levelProgress_LE->text());ui->stackedWidget->setCurrentIndex(0);}
         }
+        return;
+    }
+
+    if (ui->stackedWidget->currentIndex()==0){
+        qDebug()<<"TO THE GAME";
+
+        ui->stackedWidget->setCurrentIndex(1);
+        //load level
+        loadLevel();
+        showLevelOnScene();
+        return;
     }
 }
 
@@ -131,16 +161,11 @@ void Widget::showLevelOnScene()
     ui->searchedItem2->setPixmap(game->getItem2().scaled(w,w));
 }
 
-void Widget::on_pushButton_clicked()
+void Widget::setLevelProgress(QString str)
 {
-    //set ui page
-    ui->stackedWidget->setCurrentIndex(1);
-
-    //load level
-    loadLevel();
-
-    showLevelOnScene();
+    ui->levelProgress_LE->setText(str);
 }
+
 
 void Widget::on_pushButton_2_clicked()
 {
@@ -162,4 +187,9 @@ void Widget::loadLevel()
     game->loadLevel("testLevel");
 
     loadingLevelProgressLabel->setVisible(false);
+}
+
+void Widget::on_pushButton_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(2);
 }

@@ -14,7 +14,7 @@ class Loader : public QObject
 {
     Q_OBJECT
 public:
-    explicit Loader(QObject *parent = nullptr);
+    explicit Loader(QObject *parent = nullptr){map=new QMap<QString,Item>;}
 
     void loadLevel1(QString levelName){
         map->clear();
@@ -22,13 +22,13 @@ public:
         if (levelName=="testLevel"){
             qDebug()<<"Loading test level";
 
-            load(":/img/testRoom.png",QPoint(0,0),QSize(1600, 857),ItemType::background);
+            load(":/img/testLevel1/testRoom.png",QPoint(0,0),QSize(1600, 857),ItemType::background);
 
-            load(":/img/cactuses/cactus1.webp",QPoint(10,700),QSize(100,100),ItemType::image);
-            load(":/img/cactuses/cactus2.webp",QPoint(1200,470),QSize(100,100),ItemType::image);
-            load(":/img/cactuses/cactus3.webp",QPoint(300,300),QSize(100,100),ItemType::image);
-            load(":/img/cactuses/cactus4.webp",QPoint(400,300),QSize(100,100),ItemType::image);
-            load(":/img/cactuses/cactus5.webp",QPoint(1300,500),QSize(100,50),ItemType::image);
+            load(":/img/testLevel1/cactuses/cactus1.webp",QPoint(10,700),QSize(100,100),ItemType::image);
+            load(":/img/testLevel1/cactuses/cactus2.webp",QPoint(1200,470),QSize(100,100),ItemType::image);
+            load(":/img/testLevel1/cactuses/cactus3.webp",QPoint(300,300),QSize(100,100),ItemType::image);
+            load(":/img/testLevel1/cactuses/cactus4.webp",QPoint(400,300),QSize(100,100),ItemType::image);
+            load(":/img/testLevel1/cactuses/cactus5.webp",QPoint(1300,500),QSize(100,50),ItemType::image);
 
         }
 
@@ -43,7 +43,7 @@ public:
     }
 
     Item getBuckground(){
-        QString key=":/img/testRoom.png";
+        QString key=":/img/testLevel1/testRoom.png";
         Item i=map->find(key).value();
         map->remove(key);
         return i;

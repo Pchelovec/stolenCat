@@ -53,6 +53,16 @@ QPixmap Game::getItem2()
     return level.getItem2().pixmap;
 }
 
+bool Game::levelFinished()
+{
+    return (level.toFindSize()==0);
+}
+
+void Game::saveProgress(QString passedLevel)
+{
+    Progress::saveProgress(passedLevel,supportedLanguage::EN);
+}
+
 QPixmap Game::getResImg(QString path, QSize screen_size)
 {
     QPixmap pixmap;

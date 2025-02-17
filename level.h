@@ -39,7 +39,15 @@ public:
     QPixmap getLoadedRes(QString resPath){return loader.getRes(resPath);}
 
 
+    void clear()
+    {
+        elements.clear();
+        toFind.clear();
+        items.clear();
+    }
+
     void loadLevel(QString levelName){
+        clear();
         loader.loadLevel1(levelName);
         buckground=loader.getBuckground();
         elements=loader.getImagesElemenstAsList();
@@ -58,6 +66,8 @@ public:
         toFind.push_back(Item::getNewCheckedElem());
 
         qDebug()<<"toFindSize:"<<toFind.size();
+        qDebug()<<"ELEMENTS"<<elements.size();
+        qDebug()<<"items"<<items.size();
     }
 
     QList<Item> getElements(){return elements;}
@@ -87,6 +97,8 @@ public:
                     items[2]=get();
 //                                setNewSearchedItem();
                    }
+
+    int toFindSize(){return toFind.size();}
 private:
     QList<Item> items;//searched elem
     Item buckground;

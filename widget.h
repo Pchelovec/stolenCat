@@ -19,9 +19,9 @@ public:
     ~Widget();
 
 private slots:
-    void on_pushButton_clicked();
-
     void on_pushButton_2_clicked();
+
+    void on_pushButton_clicked();
 
 private:
     Ui::Widget *ui;
@@ -32,7 +32,7 @@ private:
     QPoint delta;
     //for multitach
     QEvent::Type m_eLastEventType;
-    void loadWalkedCat();
+//    void loadWalkedCat();
     bool checkIsInContentArea(QPoint scroll);
     QLabel *loadingLevelProgressLabel;
     void loadLevel();
@@ -44,6 +44,7 @@ protected:
 private:
     QPoint getHitPosition(QMouseEvent *event);
     void showLevelOnScene();
+    void setLevelProgress(QString str);
 };
 
 #endif // WIDGET_H
