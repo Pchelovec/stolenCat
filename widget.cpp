@@ -3,18 +3,65 @@
 #include <QMovie>
 #include <QScreen>
 #include <QDebug>
+#include<QMessageBox>
 
 #include<QScrollBar>
 #include"gameprogress.h"
+
+
 Widget::Widget(QWidget *parent) :
     QWidget(parent),
     ui(new Ui::Widget)
 {
+    //setup ui
     ui->setupUi(this);
+    //creation main game class
     game=new Game();
-    //loadWalkedCat();
+
+
+    loadAds();//ads
+    loadInterstitialAd();
+    //loading for level
     loadingLevelProgressLabel = new QLabel(this);
     ui->stackedWidget->setCurrentIndex(0);
+    loadLevelProgress();
+}
+
+
+void Widget::loadAds()
+{
+//    QScreen *screen = QGuiApplication::primaryScreen();
+//    QRect  screenGeometry = screen->geometry();
+//    int height = screenGeometry.height();
+//    int width = screenGeometry.width();
+
+    banner=new QmlBanner();
+    banner->setUnitId("ca-app-pub-3940256099942544/6300978111");
+    banner->setBannerSize(QmlBanner::LARGE_BANNER);
+    banner->setX(40);
+    banner->setY(game->getScreen().getHeight()-160);
+    banner->setTestDeviceId("41E647017EBEBB0650DAE627391B7A43");
+    banner->loadBanner();
+    banner->setVisible(true);
+
+    qDebug()<<"Banner w:"<<banner->getAdBannerWidth()<<"h:"<<banner->getAdBannerHeight();
+}
+
+void Widget::loadInterstitialAd()
+{
+    interstitial=new QmlInterstitialAd();
+    interstitial->setInterstitialAdUnitId("ca-app-pub-3940256099942544/1033173712");
+    interstitial->setInterstitialAdTestDeviceId("41E647017EBEBB0650DAE627391B7A43");
+    interstitial->loadInterstitialAd();
+}
+
+void Widget::levelEndAds()
+{
+    interstitial->showInterstitialAd();
+    interstitial->loadInterstitialAd();
+}
+void Widget::loadLevelProgress()
+{
     QStringList sl=GameProgress::getLevels();
     GameProgress::checkLevel(sl[0]);
     if (Progress::progressExist()){
@@ -24,7 +71,6 @@ Widget::Widget(QWidget *parent) :
         setLevelProgress(":/img/testLevel1");
     }
 }
-
 //void Widget::loadWalkedCat()
 //{
 //    QMovie *movie = new QMovie(":/img/cat0.gif");
@@ -46,6 +92,13 @@ bool Widget::checkIsInContentArea(QPoint pos)
 }
 
 
+void Widget::levelFinishedShowMessageBox()
+{
+    QMessageBox msgBox;
+    msgBox.setText("Level passed.");
+    msgBox.exec();
+}
+
 void Widget::mousePressEvent(QMouseEvent *event)
 {
     mMouseDragging=true;
@@ -58,6 +111,8 @@ void Widget::mousePressEvent(QMouseEvent *event)
     }
 
     if (ui->stackedWidget->currentIndex()==2){
+        //enable ads and to main menu
+        banner->setVisible(true);
         ui->stackedWidget->setCurrentIndex(0);
         //TODO MAKE SETTINGS FIELDS AND
                 //SAVE SETTINGS
@@ -70,7 +125,12 @@ void Widget::mousePressEvent(QMouseEvent *event)
         if (checkIsInContentArea(p)){
             bool b=game->hit(p);
             if (b) {showLevelOnScene();}//intersected with item and needed to repaint ui
-            if (game->levelFinished()){game->saveProgress(ui->levelProgress_LE->text());ui->stackedWidget->setCurrentIndex(0);}
+            if (game->levelFinished()){
+                levelFinishedShowMessageBox();
+                game->saveProgress(ui->levelProgress_LE->text());
+                ui->stackedWidget->setCurrentIndex(0);
+                levelEndAds();//ads
+            }
         }
         return;
     }
@@ -84,6 +144,8 @@ void Widget::mousePressEvent(QMouseEvent *event)
         showLevelOnScene();
         return;
     }
+
+
 }
 
 void Widget::mouseReleaseEvent(QMouseEvent *event)
@@ -192,4 +254,5 @@ void Widget::loadLevel()
 void Widget::on_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
+    banner->setVisible(false);
 }

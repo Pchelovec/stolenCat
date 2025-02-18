@@ -3,6 +3,7 @@
 # Project created by QtCreator 2025-02-07T15:35:40
 #
 #-------------------------------------------------
+include($$PWD/Admob/Admob.pri)
 
 QT       += core gui
 
@@ -53,6 +54,17 @@ HEADERS += \
 FORMS += \
         widget.ui
 
+
+DISTFILES += \
+    android/AndroidManifest.xml \
+    android/gradle/wrapper/gradle-wrapper.jar \
+    android/gradlew \
+    android/res/values/libs.xml \
+    android/build.gradle \
+    android/gradle/wrapper/gradle-wrapper.properties \
+    android/gradlew.bat \
+    android/src/org/qtproject/QtAdMobActivity.java
+
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
@@ -65,20 +77,20 @@ RESOURCES += \
 #QMAKE_LINK+=-nostdlib++
 contains(ANDROID_TARGET_ARCH,x86) {
     QMAKE_LINK+=-nostdlib++
-#    ANDROID_PACKAGE_SOURCE_DIR = \
-#        $$PWD/android
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
 }
 
 # armeabi-v7a architecture
 contains(ANDROID_TARGET_ARCH,armeabi-v7a) {
     QMAKE_LINK+=-nostdlib++
-#    ANDROID_PACKAGE_SOURCE_DIR = \
-#        $$PWD/android
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
 }
 
 # arm64-v8a architecture
 contains(ANDROID_TARGET_ARCH,arm64-v8a) {
     QMAKE_LINK+=-nostdlib++
-#    ANDROID_PACKAGE_SOURCE_DIR = \
-#        $$PWD/android
+    ANDROID_PACKAGE_SOURCE_DIR = \
+        $$PWD/android
 }

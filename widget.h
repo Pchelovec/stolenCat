@@ -6,6 +6,9 @@
 #include <QEvent>
 #include "game.h"
 #include "gametask.h"
+
+#include "Admob/QmlBanner.h"
+#include"Admob/QmlInterstitialAd.h"
 namespace Ui {
 class Widget;
 }
@@ -32,10 +35,17 @@ private:
     QPoint delta;
     //for multitach
     QEvent::Type m_eLastEventType;
-//    void loadWalkedCat();
     bool checkIsInContentArea(QPoint scroll);
+
+    QmlBanner *banner;
+    QmlInterstitialAd *interstitial;
+    void loadAds();
+    void loadInterstitialAd();
+    void levelEndAds();
+
     QLabel *loadingLevelProgressLabel;
     void loadLevel();
+    void loadLevelProgress();
 
 protected:
     void mousePressEvent(QMouseEvent *event);
@@ -45,6 +55,7 @@ private:
     QPoint getHitPosition(QMouseEvent *event);
     void showLevelOnScene();
     void setLevelProgress(QString str);
+    void levelFinishedShowMessageBox();
 };
 
 #endif // WIDGET_H

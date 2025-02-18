@@ -26,7 +26,7 @@
 }</string>
      </property>
      <property name="currentIndex">
-      <number>0</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <property name="styleSheet">
@@ -180,7 +180,7 @@
             <x>0</x>
             <y>0</y>
             <width>259</width>
-            <height>213</height>
+            <height>93</height>
            </rect>
           </property>
           <layout class="QGridLayout" name="gridLayout_4">
@@ -212,7 +212,7 @@
          <property name="minimumSize">
           <size>
            <width>0</width>
-           <height>100</height>
+           <height>220</height>
           </size>
          </property>
          <property name="text">
