@@ -26,11 +26,12 @@ bool Game::hit(QPoint pos)
     return result;
 }
 
-QPixmap *Game::getScene(GameTask *task)
+QPixmap *Game::getScene()
 {
-    PatchedGamePainter *gamePainter=new PatchedGamePainter(QSize(1600,857));
+    QSize screen=QSize(level.getBuckground().getSize().width(),level.getBuckground().getSize().height());
+    PatchedGamePainter *gamePainter=new PatchedGamePainter(screen);
     gamePainter->create();
-    gamePainter->draw(0,0,level.getBuckground().pixmap.scaled(QSize(1600,857)));
+    gamePainter->draw(0,0,level.getBuckground().pixmap.scaled(screen));
     for (Item i:level.getElements()){
         qDebug()<<"painted "<<i.pixmap<<"("<<i.startPosition.x()<<":"<<i.startPosition.y()<<")";
         gamePainter->draw(i.startPosition.x(),i.startPosition.y(),getResImg(i.name,i.size));
@@ -71,13 +72,6 @@ QPixmap Game::getResImg(QString path, QSize screen_size)
     return pixmap.scaled(screen_size.width(),screen_size.height());
 }
 
-//QPixmap Game::getResImg(QString path)
-//{
-//    QPixmap pixmap;
-//    if (level.loadedAsMemoryRes(path)){pixmap=level.getLoadedRes(path);}
-//    else {qDebug()<<path<<" LOAD FROM DISK";pixmap.load(path);}
-//    return pixmap;
-//}
 
 QRect Game::createRectByItem(Item item)
 {

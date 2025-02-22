@@ -1,9 +1,6 @@
-"testRoom.png" 0 0
-"cactuses/cactus1.webp" 10 700 100 100
-"cactuses/cactus2.webp" 1200 470 100 100
-"cactuses/cactus3.webp" 300 300 100 100
-"cactuses/cactus4.webp" 400 300 100 100
-"cactuses/cactus5.webp" 1300 500 100 100
-"checked.png" 0 0 0 0
-"checked.png" 0 0 0 0
-"checked.png" 0 0 0 0
+testRoom.png 0 0
+cactuses/cactus1.webp 10 700 100 100
+cactuses/cactus2.webp 1200 470 100 100
+cactuses/cactus3.webp 300 300 100 100
+cactuses/cactus4.webp 400 300 100 100
+cactuses/cactus5.webp 1300 500 100 50

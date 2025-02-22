@@ -4,35 +4,53 @@
 #include <QObject>
 #include<QCoreApplication>
 #include <QMap>
+#include<QFile>
 #include<QPixmap>
 #include<QDebug>
 #include <QPoint>
 #include"item.h"
 #include"itemtype.h"
 
-class Loader : public QObject
+class Loader
 {
-    Q_OBJECT
 public:
-    explicit Loader(QObject *parent = nullptr){map=new QMap<QString,Item>;}
+    Loader(){map=new QMap<QString,Item>;}
 
     void loadLevel1(QString levelName){
         map->clear();
 
-        if (levelName=="testLevel"){
-            qDebug()<<"Loading test level";
+        //STEP 1 LOAD FROM FILE
+        qDebug()<<"Loading "<<levelName;
+        QFile file(levelName+"/level.txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return;
 
-            load(":/img/testLevel1/testRoom.png",QPoint(0,0),QSize(1600, 857),ItemType::background);
+        QStringList list;
 
-            load(":/img/testLevel1/cactuses/cactus1.webp",QPoint(10,700),QSize(100,100),ItemType::image);
-            load(":/img/testLevel1/cactuses/cactus2.webp",QPoint(1200,470),QSize(100,100),ItemType::image);
-            load(":/img/testLevel1/cactuses/cactus3.webp",QPoint(300,300),QSize(100,100),ItemType::image);
-            load(":/img/testLevel1/cactuses/cactus4.webp",QPoint(400,300),QSize(100,100),ItemType::image);
-            load(":/img/testLevel1/cactuses/cactus5.webp",QPoint(1300,500),QSize(100,50),ItemType::image);
-
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            list.append(line);
         }
+        qDebug()<<list;
 
 
+        //STEP 2 LOAD BACKGROUND
+        QString firstLine_Background=list[0];
+        QStringList bacground=firstLine_Background.split(" ");
+        QString resPath=levelName+"/"+bacground[0];
+        QPixmap img;
+        img.load(resPath);
+        load(resPath,QPoint(bacground[1].toInt(),bacground[1].toInt()),QSize(img.width(), img.height()),ItemType::background);
+        list.pop_front();
+
+        //STEP 3 LOAD EITEMS
+        for(QString itemedString:list){
+            QStringList olmostItem=itemedString.split(" ");
+            QString b=levelName+"/"+olmostItem[0];
+            qDebug()<<olmostItem;
+            load(b,QPoint(olmostItem[1].toInt(),olmostItem[2].toInt()),QSize(olmostItem[3].toInt(), olmostItem[4].toInt()),ItemType::image);
+        }
     }
 
     QPixmap getRes(QString resPath){
@@ -43,10 +61,19 @@ public:
     }
 
     Item getBuckground(){
-        QString key=":/img/testLevel1/testRoom.png";
-        Item i=map->find(key).value();
-        map->remove(key);
-        return i;
+        //        QString key=":/img/testLevel1/testRoom.png";
+        //        Item i=map->find(key).value();
+        //        map->remove(key);
+        //        return i;
+        Item result;
+        for(QString mapKey:map->keys()){
+            Item e=map->find(mapKey).value();
+            if (e.type==ItemType::background){
+                result=e;
+                map->remove(mapKey);
+            }
+        }
+        return result;
     }
 
     QList<Item> getImagesElemenstAsList(){
@@ -68,7 +95,7 @@ private:
     void load(QString resPath,QPoint pos,QSize size, ItemType t){
         //load img
         QPixmap img;
-                img.load(resPath);
+        img.load(resPath);
 
         //insert to map
         Item item;

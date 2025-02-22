@@ -54,7 +54,7 @@ public:
     }
 
     static bool removeProgress(){
-        QFile::remove(filename);
+        return QFile::remove(filename);
     }
 
     static bool progressExist(){

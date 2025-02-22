@@ -18,7 +18,7 @@ public:
     bool hit(QPoint pos);
     bool changed;
 
-    QPixmap * getScene(GameTask *task);
+    QPixmap * getScene();
     QPixmap getItem0();
     QPixmap getItem1();
     QPixmap getItem2();

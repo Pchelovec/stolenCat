@@ -56,6 +56,7 @@ private:
     void showLevelOnScene();
     void setLevelProgress(QString str);
     void levelFinishedShowMessageBox();
+    void levelsIncrementer();
 };
 
 #endif // WIDGET_H

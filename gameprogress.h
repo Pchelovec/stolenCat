@@ -5,6 +5,7 @@
 #include<QDebug>
 #include<QFile>
 #include<QDirIterator>
+namespace  {
 
 class GameProgress
 {
@@ -12,38 +13,28 @@ public:
     GameProgress();
     static QString filename;
 
-    static QStringList getLevels(){
-        qDebug()<<"Available LEVELS";
-        QString startPath=QString(":/img/");
-        QDir dir(startPath);
+    static QStringList levelsList;
 
-        QStringList result;
-        QFileInfoList fil=dir.entryInfoList();
-        for (QFileInfo i:fil){
-            QString s=i.filePath();
-            result.append(s);
-        }
-        result.removeOne(":/img/screen");
-        qDebug()<<result;
-        return result;
-    }
+    static QStringList levels(){return levelsList;}
 
-    static int getLevelsCount(){return getLevels().size();}
+    static int getLevelsCount(){return levelsList.size();}
 
     static int getPosition(QString level){
         int result=0;
 
-        for (QString s:getLevels()){
+        for (QString s:levelsList){
             if (QString::compare(s,level)==0){return result;}
             result++;
         }
-        return result;//no such element
+        return -1;//no such element
     }
 
     static QString getNextForCurrentPosition(QString current){
         int pos=getPosition(current);
-        QStringList sl=getLevels();
-        if (pos>0 and pos<sl.size()){return sl.at(pos+1);}
+        if (pos>=0 and pos<levelsList.size()-1){
+            return levelsList.at(pos+1);
+        }
+        return "winner";
     }
 
     static bool checkLevel(QString path){
@@ -59,6 +50,30 @@ public:
     static void loadFromFiles(QString path){
         qDebug()<<"TODO loading for path"<<path;
     }
+
+
+private:
+    static QStringList getLevels(){
+//        qDebug()<<"Available LEVELS";
+        QString startPath=QString(":/img/");
+        QDir dir(startPath);
+
+        QStringList result;
+        QFileInfoList fil=dir.entryInfoList();
+        for (QFileInfo i:fil){
+            QString s=i.filePath();
+            result.append(s);
+        }
+        result.removeOne(":/img/screen");
+//        qDebug()<<result;
+        return result;
+    }
+
 };
 
+QStringList GameProgress::levelsList=GameProgress::getLevels();
+
+QString GameProgress::filename="finished.txt";
+
+}
 #endif // GAMEPROGRESS_H

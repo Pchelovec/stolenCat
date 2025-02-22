@@ -18,27 +18,25 @@ Widget::Widget(QWidget *parent) :
     //creation main game class
     game=new Game();
 
+    loadLevelProgress();
 
     loadAds();//ads
     loadInterstitialAd();
+    //reload ads after closing privious ads
+    QObject::connect(interstitial,SIGNAL(interstitialAdClosed()),interstitial,SLOT(loadInterstitialAd()));
     //loading for level
     loadingLevelProgressLabel = new QLabel(this);
     ui->stackedWidget->setCurrentIndex(0);
-    loadLevelProgress();
 }
 
 
 void Widget::loadAds()
 {
-//    QScreen *screen = QGuiApplication::primaryScreen();
-//    QRect  screenGeometry = screen->geometry();
-//    int height = screenGeometry.height();
-//    int width = screenGeometry.width();
 
     banner=new QmlBanner();
     banner->setUnitId("ca-app-pub-3940256099942544/6300978111");
     banner->setBannerSize(QmlBanner::LARGE_BANNER);
-    banner->setX(40);
+    banner->setX(10);
     banner->setY(game->getScreen().getHeight()-160);
     banner->setTestDeviceId("41E647017EBEBB0650DAE627391B7A43");
     banner->loadBanner();
@@ -58,18 +56,21 @@ void Widget::loadInterstitialAd()
 void Widget::levelEndAds()
 {
     interstitial->showInterstitialAd();
+//    interstitial->interstitialAdClosed();//todo on closed add-> load new add
     interstitial->loadInterstitialAd();
 }
+
+//first level is ":/img/testLevel1"
 void Widget::loadLevelProgress()
 {
-    QStringList sl=GameProgress::getLevels();
-    GameProgress::checkLevel(sl[0]);
+    QStringList sl=GameProgress::levels();
     if (Progress::progressExist()){
-        setLevelProgress(Progress::loadProgress().first);//setup restored progress
+        ui->levelProgress_LE->setText(Progress::loadProgress().first);
     }
-    else {
-        setLevelProgress(":/img/testLevel1");
+    else{
+        ui->levelProgress_LE->setText(":/img/testLevel1");
     }
+    qDebug()<<"AVALIBLE LEVELS"<<sl;
 }
 //void Widget::loadWalkedCat()
 //{
@@ -85,8 +86,8 @@ void Widget::loadLevelProgress()
 bool Widget::checkIsInContentArea(QPoint pos)
 {
     qDebug()<<"just center"<<ui->contentLabel->geometry().center();
-    if ((pos.x()<0)or (pos.y()<0))return false;
-    if ((pos.x()>ui->contentLabel->geometry().width()) or(pos.y()>ui->contentLabel->geometry().height())) return false;
+    if ((pos.x()<0)or (pos.y()<0)){qDebug()<<"OUT OF CONTENT AREAA"<<pos;return false;}
+    if ((pos.x()>ui->contentLabel->geometry().width()) or(pos.y()>ui->contentLabel->geometry().height())) {qDebug()<<"OUT OF CONTENT AREAA"<<"(MAX)";return false;}
 
     return true;
 }
@@ -97,6 +98,20 @@ void Widget::levelFinishedShowMessageBox()
     QMessageBox msgBox;
     msgBox.setText("Level passed.");
     msgBox.exec();
+}
+
+void Widget::levelsIncrementer()
+{
+    qDebug()<<"TODO set next level";
+    QString oldeLevel=ui->levelProgress_LE->text();
+    QString newLevel=GameProgress::getNextForCurrentPosition(oldeLevel);
+    if(newLevel=="winner"){
+        banner->setVisible(false);
+        //todo video add
+    }
+    else{
+        ui->levelProgress_LE->setText(newLevel);
+    }
 }
 
 void Widget::mousePressEvent(QMouseEvent *event)
@@ -130,6 +145,8 @@ void Widget::mousePressEvent(QMouseEvent *event)
                 game->saveProgress(ui->levelProgress_LE->text());
                 ui->stackedWidget->setCurrentIndex(0);
                 levelEndAds();//ads
+                banner->setVisible(true);
+                levelsIncrementer();
             }
         }
         return;
@@ -137,7 +154,7 @@ void Widget::mousePressEvent(QMouseEvent *event)
 
     if (ui->stackedWidget->currentIndex()==0){
         qDebug()<<"TO THE GAME";
-
+        banner->setVisible(false);
         ui->stackedWidget->setCurrentIndex(1);
         //load level
         loadLevel();
@@ -205,11 +222,11 @@ Widget::~Widget()
 
 void Widget::showLevelOnScene()
 {
-    int pref_w=game->getScreen().getWidth();
-    int pref_h=game->getScreen().getHeight();
-    GameTask *task=new GameTask();
-    task->screenSize=QSize(pref_w,pref_h);
-    QPixmap pixmap=*game->getScene(task);
+//    int pref_w=game->getScreen().getWidth();
+//    int pref_h=game->getScreen().getHeight();
+//    GameTask *task=new GameTask();
+//    task->screenSize=QSize(pref_w,pref_h);
+    QPixmap pixmap=*game->getScene();
 
     ui->contentLabel->setPixmap(pixmap);
 //    ui->contentLabel->setScaledContents( true );
@@ -231,6 +248,7 @@ void Widget::setLevelProgress(QString str)
 
 void Widget::on_pushButton_2_clicked()
 {
+    banner->setVisible(true);
     ui->stackedWidget->setCurrentIndex(0);
 }
 
@@ -246,7 +264,8 @@ void Widget::loadLevel()
     loadingLevelProgressLabel->raise();
     loadingLevelProgressLabel->show();
 
-    game->loadLevel("testLevel");
+//    game->loadLevel("testLevel");
+    game->loadLevel(ui->levelProgress_LE->text());
 
     loadingLevelProgressLabel->setVisible(false);
 }

@@ -1,6 +1,8 @@
 <RCC>
     <qresource prefix="/">
         <file>img/screen/cat0.gif</file>
+        <file>img/screen/checked.png</file>
+        <file>img/screen/icons8-no-image-50.png</file>
         <file>img/screen/language.png</file>
         <file>img/screen/load.gif</file>
         <file>img/testLevel1/cactuses/cactus1.webp</file>
@@ -8,16 +10,14 @@
         <file>img/testLevel1/cactuses/cactus3.webp</file>
         <file>img/testLevel1/cactuses/cactus4.webp</file>
         <file>img/testLevel1/cactuses/cactus5.webp</file>
-        <file>img/testLevel1/checked.png</file>
-        <file>img/testLevel1/testRoom.png</file>
         <file>img/testLevel1/level.txt</file>
-        <file>img/testLevel2/checked.png</file>
+        <file>img/testLevel1/testRoom.png</file>
         <file>img/testLevel2/level.txt</file>
         <file>img/testLevel2/Lolly.png</file>
         <file>img/testLevel2/Lolly_name.webp</file>
         <file>img/testLevel2/paper.webp</file>
         <file>img/testLevel2/Polly.png</file>
-        <file>img/testLevel2/Poly_name.webp</file>
+        <file>img/testLevel2/Polly_name.webp</file>
         <file>img/testLevel2/Trolly.png</file>
         <file>img/testLevel2/Trolly_name.webp</file>
         <file>img/testLevel2/welcome.webp</file>
