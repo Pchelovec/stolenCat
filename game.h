@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QPixmap>
 #include<QSize>
-#include "gametask.h"
 #include "patched_game_painter.h"
 #include"level.h"
 #include"screen.h"

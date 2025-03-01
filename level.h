@@ -50,8 +50,8 @@ public:
         clear();
         loader.loadLevel1(levelName);
         buckground=loader.getBuckground();
-        elements=loader.getImagesElemenstAsList();
-        toFind=loader.getImagesElemenstAsList();
+        elements=loader.getImagesElemenstAsList(levelName);
+        toFind=loader.getImagesElemenstAsList(levelName);
         items.push_back(elements[0]);
         items.push_back(elements[1]);
         items.push_back(elements[2]);

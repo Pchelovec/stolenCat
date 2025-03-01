@@ -5,7 +5,6 @@
 #include <QWidget>
 #include <QEvent>
 #include "game.h"
-#include "gametask.h"
 
 #include "Admob/QmlBanner.h"
 #include"Admob/QmlInterstitialAd.h"

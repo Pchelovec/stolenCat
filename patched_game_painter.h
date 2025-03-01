@@ -4,7 +4,6 @@
 #include <QObject>
 #include <QPixmap>
 #include <QPainter>
-#include"loader.h"
 class PatchedGamePainter : public QObject
 {
     Q_OBJECT

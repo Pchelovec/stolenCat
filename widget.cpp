@@ -32,7 +32,6 @@ Widget::Widget(QWidget *parent) :
 
 void Widget::loadAds()
 {
-
     banner=new QmlBanner();
     banner->setUnitId("ca-app-pub-3940256099942544/6300978111");
     banner->setBannerSize(QmlBanner::LARGE_BANNER);
@@ -105,13 +104,16 @@ void Widget::levelsIncrementer()
     qDebug()<<"TODO set next level";
     QString oldeLevel=ui->levelProgress_LE->text();
     QString newLevel=GameProgress::getNextForCurrentPosition(oldeLevel);
-    if(newLevel=="winner"){
-        banner->setVisible(false);
-        //todo video add
-    }
-    else{
-        ui->levelProgress_LE->setText(newLevel);
-    }
+    qDebug()<<"old level is"<<oldeLevel<< " new level"<<newLevel;
+    ui->levelProgress_LE->setText(newLevel);
+
+//    if(newLevel=="winner"){
+//        banner->setVisible(false);
+//        //todo video add
+//    }
+//    else{
+//        ui->levelProgress_LE->setText(newLevel);
+//    }
 }
 
 void Widget::mousePressEvent(QMouseEvent *event)
@@ -144,8 +146,8 @@ void Widget::mousePressEvent(QMouseEvent *event)
                 levelFinishedShowMessageBox();
                 game->saveProgress(ui->levelProgress_LE->text());
                 ui->stackedWidget->setCurrentIndex(0);
-                levelEndAds();//ads
-                banner->setVisible(true);
+                banner->setVisible(true);  //ads
+                levelEndAds();
                 levelsIncrementer();
             }
         }
@@ -222,15 +224,8 @@ Widget::~Widget()
 
 void Widget::showLevelOnScene()
 {
-//    int pref_w=game->getScreen().getWidth();
-//    int pref_h=game->getScreen().getHeight();
-//    GameTask *task=new GameTask();
-//    task->screenSize=QSize(pref_w,pref_h);
     QPixmap pixmap=*game->getScene();
-
     ui->contentLabel->setPixmap(pixmap);
-//    ui->contentLabel->setScaledContents( true );
-//    ui->contentLabel->setGeometry(0,0,pref_w,pref_h);
 
 //    qDebug()<<game->getItem0();
     int w=width()/3;

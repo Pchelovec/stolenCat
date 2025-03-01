@@ -51,6 +51,7 @@ public:
             qDebug()<<olmostItem;
             load(b,QPoint(olmostItem[1].toInt(),olmostItem[2].toInt()),QSize(olmostItem[3].toInt(), olmostItem[4].toInt()),ItemType::image);
         }
+
     }
 
     QPixmap getRes(QString resPath){
@@ -76,12 +77,34 @@ public:
         return result;
     }
 
-    QList<Item> getImagesElemenstAsList(){
+    QList<Item> getImagesElemenstAsList(QString levelName){
         QList<Item> result;
-        for (auto it = map->keyValueBegin(); it != map->keyValueEnd(); ++it) {
-            result.push_back(it.base().value());
+
+        //STEP 1 LOAD FROM FILE
+        qDebug()<<"Loading "<<levelName;
+        QFile file(levelName+"/level.txt");
+        if (!file.open(QIODevice::ReadOnly | QIODevice::Text))
+            return QList<Item>();
+
+        QStringList list;
+
+        QTextStream in(&file);
+        while (!in.atEnd()) {
+            QString line = in.readLine();
+            list.append(line);
         }
-        qDebug()<<"current length of arr:"<<result.length();
+        qDebug()<<list;
+
+
+        //STEP 2 DEL BACKGROUND
+       list.pop_front();
+
+        //STEP 3 LOAD ITEMS
+        for(QString itemedString:list){
+            QStringList olmostItem=itemedString.split(" ");
+            QString b=levelName+"/"+olmostItem[0];
+            result.push_back(map->find(b).value());
+        }
         return result;
     }
 
@@ -92,6 +115,7 @@ public:
     }
 private:
     QMap<QString,Item> *map;
+
     void load(QString resPath,QPoint pos,QSize size, ItemType t){
         //load img
         QPixmap img;
