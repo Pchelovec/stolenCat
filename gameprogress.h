@@ -102,6 +102,18 @@ private:
         result.append(":/img/WelcomePackLevel9");
         result.append(":/img/WelcomePackLevel10");
 
+
+        result.append(":/img/InPrison1");
+        result.append(":/img/InPrison2");
+        result.append(":/img/InPrison3");
+        result.append(":/img/InPrison4");
+        result.append(":/img/InPrison5");
+        result.append(":/img/InPrison6");
+        result.append(":/img/InPrison7");
+        result.append(":/img/InPrison8");
+        result.append(":/img/InPrison9");
+        result.append(":/img/InPrison10");
+
         return result;
     }
 

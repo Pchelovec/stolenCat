@@ -62,7 +62,8 @@ DISTFILES += \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew.bat \
-    android/src/org/qtproject/QtAdMobActivity.java
+    android/src/org/qtproject/QtAdMobActivity.java \
+    android/gradle.properties
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
