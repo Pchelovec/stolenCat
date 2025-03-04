@@ -131,8 +131,7 @@ void Widget::mousePressEvent(QMouseEvent *event)
         //enable ads and to main menu
         banner->setVisible(true);
         ui->stackedWidget->setCurrentIndex(0);
-        //TODO MAKE SETTINGS FIELDS AND
-                //SAVE SETTINGS
+        ui->levelProgress_LE->setText(":/img/nagaunt");
         return;
     }
 
@@ -269,4 +268,22 @@ void Widget::on_pushButton_clicked()
 {
     ui->stackedWidget->setCurrentIndex(2);
     banner->setVisible(false);
+}
+
+void Widget::on_label_3_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->levelProgress_LE->setText(":/img/testLevel1");
+}
+
+void Widget::on_label_4_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->levelProgress_LE->setText(":/img/WelcomeLevel1");
+}
+
+void Widget::on_label_5_clicked()
+{
+    ui->stackedWidget->setCurrentIndex(0);
+    ui->levelProgress_LE->setText(":/img/InPrison1");
 }

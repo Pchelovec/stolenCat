@@ -91,16 +91,16 @@ private:
         result.append(":/img/testLevel1");
         result.append(":/img/testLevel2");
 
-        result.append(":/img/WelcomePackLevel1");
-        result.append(":/img/WelcomePackLevel2");
-        result.append(":/img/WelcomePackLevel3");
-        result.append(":/img/WelcomePackLevel4");
-        result.append(":/img/WelcomePackLevel5");
-        result.append(":/img/WelcomePackLevel6");
-        result.append(":/img/WelcomePackLevel7");
-        result.append(":/img/WelcomePackLevel8");
-        result.append(":/img/WelcomePackLevel9");
-        result.append(":/img/WelcomePackLevel10");
+        result.append(":/img/WelcomeLevel1");
+        result.append(":/img/WelcomeLevel2");
+        result.append(":/img/WelcomeLevel3");
+        result.append(":/img/WelcomeLevel4");
+        result.append(":/img/WelcomeLevel5");
+        result.append(":/img/WelcomeLevel6");
+        result.append(":/img/WelcomeLevel7");
+        result.append(":/img/WelcomeLevel8");
+        result.append(":/img/WelcomeLevel9");
+        result.append(":/img/WelcomeLevel10");
 
 
         result.append(":/img/InPrison1");

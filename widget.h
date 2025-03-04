@@ -25,6 +25,12 @@ private slots:
 
     void on_pushButton_clicked();
 
+    void on_label_3_clicked();
+
+    void on_label_4_clicked();
+
+    void on_label_5_clicked();
+
 private:
     Ui::Widget *ui;
     Game *game;
